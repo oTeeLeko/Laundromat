@@ -6,32 +6,32 @@ const wash_machines = [
   {
     id: 1,
     title: "Washing Machine 1",
-    status: true,
+    status: "available",
   },
   {
     id: 2,
     title: "Washing Machine 2",
-    status: false,
+    status: "available",
   },
   {
     id: 3,
     title: "Washing Machine 3",
-    status: true,
+    status: "broken",
   },
   {
     id: 4,
     title: "Washing Machine 4",
-    status: true,
+    status: "available",
   },
   {
     id: 5,
     title: "Washing Machine 5",
-    status: true,
+    status: "available",
   },
   {
     id: 6,
     title: "Washing Machine 6",
-    status: true,
+    status: "available",
   },
 ];
 

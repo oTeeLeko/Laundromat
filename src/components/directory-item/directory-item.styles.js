@@ -4,8 +4,9 @@ export const DirectoryItemContainer = styled.div`
   border: none;
   border-radius: 5px;
   padding: 25px;
-  background-color: #fff;
+  background-color: #faf9f6;
   width: auto;
+  margin-bottom: 25px;
 `;
 
 export const Container = styled.div`
@@ -13,6 +14,7 @@ export const Container = styled.div`
   max-width: max-content;
   flex-direction: column;
   margin: auto;
+
   .available {
     width: 200px;
     height: 200px;
@@ -27,6 +29,17 @@ export const Container = styled.div`
     width: 200px;
     height: 200px;
     background: #35b3e7;
+    border-radius: 50%;
+    box-shadow: inset 0 0 20px 0 rgba(0, 0, 0, 0.8),
+      0 0 20px 0 rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    animation: spin-cycle 12s ease 1s infinite;
+  }
+  .broken {
+    width: 200px;
+    height: 200px;
+    background: #d22b2b;
     border-radius: 50%;
     box-shadow: inset 0 0 20px 0 rgba(0, 0, 0, 0.8),
       0 0 20px 0 rgba(0, 0, 0, 0.3);
@@ -63,6 +76,14 @@ export const Container = styled.div`
     100% {
       transform: translate(-50%, -50%) rotate(360deg);
       top: -30%;
+    }
+  }
+  @keyframes spin-cycle {
+    0% {
+      transform: rotate(4320deg);
+    }
+    66% {
+      transform: rotate(0deg);
     }
   }
 `;
