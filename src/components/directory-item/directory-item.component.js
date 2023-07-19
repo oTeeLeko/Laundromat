@@ -5,7 +5,9 @@ import {
   Button,
 } from "./directory-item.styles";
 
-const baseURL = "https://notify-api.line.me/api/notify";
+import axios from "axios";
+
+const baseURL = "http://notify-api.line.me/api/notify";
 
 const tokenLine = "xeW1DTDyx7JhHHtUYXNA1x8RSUNsTY1ZhgB7FXVYcmp";
 
@@ -15,6 +17,27 @@ const DirectoryItem = function ({ machine }) {
   const [statusFeild, setStatusFeild] = useState(status);
   const [remainTime, setRemainTime] = useState("");
   const increment = useRef(null);
+
+  const notifyLine = async (token, msg) => {
+    const response = await axios({
+      method: "POST",
+      url: baseURL,
+      maxBodyLength: Infinity,
+      withCredentials: false,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + token,
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: `message=${msg}`,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const startHandler = (e) => {
     e.preventDefault();
@@ -40,22 +63,7 @@ const DirectoryItem = function ({ machine }) {
       if (time === 59) {
         const msg = `${title} remaining time is less than 1 min`;
         setMessage(msg);
-        console.log(`Bearer ${tokenLine}`);
-        console.log(tokenLine);
-        await fetch(baseURL, {
-          method: "POST",
-
-          headers: {
-            "content-type": "application/json",
-            Authorization: "Bearer " + tokenLine,
-            "Access-Control-Allow-Origin": "*",
-          },
-          body: message,
-        })
-          .then((res) => {
-            console.log("test" + res);
-          })
-          .catch((err) => console.log("err" + err));
+        notifyLine(tokenLine, message);
       }
     };
     tick();
