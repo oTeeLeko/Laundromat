@@ -4,20 +4,21 @@ import {
   Container,
   Button,
 } from "./directory-item.styles";
-
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const baseURL = "http://notify-api.line.me/api/notify";
 
 const tokenLine = "xeW1DTDyx7JhHHtUYXNA1x8RSUNsTY1ZhgB7FXVYcmp";
 
 const DirectoryItem = function ({ machine }) {
+  // Declare variable
   let { title, status } = machine;
-  const [message, setMessage] = useState("");
   const [statusFeild, setStatusFeild] = useState(status);
   const [remainTime, setRemainTime] = useState("");
   const increment = useRef(null);
 
+  // Sending msg to line funnction
   const notifyLine = async (token, msg) => {
     const response = await axios({
       method: "POST",
@@ -39,6 +40,7 @@ const DirectoryItem = function ({ machine }) {
       });
   };
 
+  // insertCoin function to countdown and sending message to line group
   const startHandler = (e) => {
     e.preventDefault();
     let time = 120;
@@ -51,6 +53,8 @@ const DirectoryItem = function ({ machine }) {
       const sec = String(time % 60).padStart(2, 0);
 
       const timer = `${min}:${sec}`;
+
+      // Set machine to avaiable status when countdown time to 0
       if (time === 0) {
         clearInterval(increment.current);
         statusString = "available";
@@ -60,10 +64,12 @@ const DirectoryItem = function ({ machine }) {
       time--;
       setRemainTime(timer);
 
+      // Sending msg to line group when reamin time is less than 1 min
       if (time === 59) {
         const msg = `${title} remaining time is less than 1 min`;
-        setMessage(msg);
-        notifyLine(tokenLine, message);
+        notifyLine(tokenLine, msg);
+        //
+        toast.success("Message is already send to line group");
       }
     };
     tick();
