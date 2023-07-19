@@ -4,7 +4,7 @@ import Directory from "./components/directory/directory.component";
 function App() {
   return (
     <div>
-      <h1 className="app-title">WASHING MACHINE</h1>
+      <h1 className="app-title">Washing Machine</h1>
       <Directory />
     </div>
   );
